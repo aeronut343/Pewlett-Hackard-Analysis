@@ -106,3 +106,27 @@ FROM dept_manager AS dm
         ON (dm.dept_no = d.dept_no)
     INNER JOIN current_emp AS ce
         ON (dm.emp_no = ce.emp_no);
+		
+-- List of retirees per department
+SELECT ei.emp_no,
+ei.first_name,
+ei.last_name,
+d.dept_name
+INTO dept_info
+FROM emp_info as ei
+INNER JOIN dept_emp AS de
+ON (ei.emp_no = de.emp_no)
+INNER JOIN departments AS d
+ON (de.dept_no = d.dept_no);
+
+-- List of retirees in Sales
+SELECT * 
+INTO sales_retiree_list
+FROM dept_info as di
+WHERE di.dept_name = 'Sales'
+
+-- List of retirees in Sales and Development
+SELECT * 
+INTO sales_dev_retiree_list
+FROM dept_info as di
+WHERE di.dept_name IN ('Sales','Development')
